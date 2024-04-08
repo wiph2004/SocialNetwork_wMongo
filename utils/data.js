@@ -75,24 +75,24 @@ const names = [
 ];
 
 const emails = [
-  'Decision Tracker',
-  'Find My Phone',
-  'Learn Piano',
-  'Starbase Defender',
-  'Tower Defense',
-  'Monopoly Money Manager',
-  'Movie trailers',
-  'Hello world',
-  'Stupid Social Media App',
-  'Notes',
-  'Messages',
-  'Email',
-  'Compass',
-  'Firefox',
-  'Running app',
-  'Cooking app',
-  'Poker',
-  'Deliveries',
+  'joeschmoe@email.com',
+  'schmoejoe@email.com',
+  'dudeman@email.com',
+  'LynchyJoey@email.com',
+  'BustinCode@email.com',
+  'codeman@email.com',
+  'mongobongo@email.com',
+  'hellocodo@email.com',
+  'lesshomework@email.com',
+  'apps@email.com',
+  'messages@email.com',
+  'spamspamspam@email.com',
+  'confusedandlost@email.com',
+  'fireflame@email.com',
+  'runningjumping@email.com',
+  'karencooking@email.com',
+  'kittytime@email.com',
+  'purringperfection@email.com',
 ];
 
 const thoughts = [
@@ -121,8 +121,16 @@ const getRandomName = () =>
   `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
 
 // Function to generate random assignments that we can add to student object.
+const usedEmails = [];
+
 const getRandomEmails = () => {
- const newEmail = getRandomArrItem(emails)
+ let newEmail = getRandomArrItem(emails);
+
+ while(usedEmails.includes(newEmail)){
+  newEmail = getRandomArrItem(emails);
+ }
+ usedEmails.push(newEmail);
+
  return newEmail;
 };
 
