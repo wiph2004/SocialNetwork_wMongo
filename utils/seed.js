@@ -23,7 +23,6 @@ connection.once("open", async () => {
 
   const users = [];
 
-  // Loop 20 times -- add users to the users array
   for (let i = 0; i < 5; i++) {
     // Get some random assignment objects using a helper function that we imported from ./data
     const email = getRandomEmails();
@@ -32,18 +31,14 @@ connection.once("open", async () => {
     users.push({
       username,
       email,
+      thoughts: []
     });
   }
 
-  // Add users to the collection and await the results
-  const userData = await User.insertMany(users);
-
-  // Add thoughts to the collection and await the results
-  const newUsers = await User.find({}, "username");
   const thoughts = [];
 
   for (let p = 0; p < 15; p++) {
-    const randomUser = newUsers[Math.floor(Math.random() * newUsers.length)];
+    const randomUser = users[Math.floor(Math.random() * users.length)];
     const thought = getRandomThought();
 
     thoughts.push({
@@ -56,18 +51,13 @@ connection.once("open", async () => {
 
   Thoughts.find({})
     .then((thoughts) => {
-      // Iterate over each thought
       thoughts.forEach(async (thought) => {
         try {
-          // Find the user by username associated with the thought
-          const user = await User.findOne({ username: thought.username });
-
-          // Add the thought's ID to the user's thoughts array
-          user.thoughts.push(thought._id);
-
-          // Save the updated user
-          const savedUser = await user.save();
-          console.log(`Thought linked to user ${user.username} successfully`);
+          users.forEach((user) => {
+            if (user.username === thought.username) {
+              user.thoughts.push(thought._id);
+            }
+          });
         } catch (error) {
           console.error("Error processing thought:", error);
         }
@@ -76,10 +66,10 @@ connection.once("open", async () => {
     .catch((error) => {
       console.error("Error finding thoughts:", error);
     });
+  const userData = await User.insertMany(users);
 
   // Log out the seed data to indicate what should appear in the database
-  console.table(users);
-  console.table(thoughts);
+
   console.info("Seeding complete! 🌱");
   process.exit(0);
 });

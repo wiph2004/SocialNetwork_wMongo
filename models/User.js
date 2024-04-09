@@ -13,7 +13,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/, 'Please enter a valid email address'],
+      match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Please enter a valid email address'],
     },
     thoughts: [{ type: Schema.Types.ObjectId, ref: 'thought' }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'user' }],
