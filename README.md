@@ -26,7 +26,8 @@ Needs to follow CRUD method for users, thoughts and reactions
 
 # Location
 
-https://www.youtube.com/watch?v=wqHpRgWOv18
+[https://www.youtube.com/watch?v=wqHpRgWOv18](https://cheerful-pie-e0963c.netlify.app/)
+
 
 # Credits
 
